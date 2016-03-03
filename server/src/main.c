@@ -5,14 +5,16 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Feb  1 18:53:38 2016 Clement Peau
-** Last update Thu Feb  4 18:28:35 2016 Clement Peau
+** Last update Sat Feb 20 17:10:19 2016 Clement Peau
 */
 
 #include "minitalk.h"
 
 void	get_pid(int *pid, int value, int *got_pid)
 {
-  if (*got_pid == 0)
+  if (value != 0 && *got_pid == 1)
+    my_puttable(value);
+  else if (*got_pid == 0)
     {
       if (value == 0)
 	{
@@ -22,8 +24,6 @@ void	get_pid(int *pid, int value, int *got_pid)
       *pid = *pid * 10;
       *pid += value - 48;
     }
-  else if (value != 0)
-    my_puttable(value);
   if (value == 0 && *got_pid == 1)
     {
       *got_pid = 0;
@@ -65,5 +65,7 @@ int	main()
   write(1, "\n", 1);
   signal(SIGUSR1, zero);
   signal(SIGUSR2, one);
-  while (42);
+  while (42)
+    {
+    }
 }

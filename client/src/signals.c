@@ -5,61 +5,21 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Feb  1 18:54:04 2016 Clement Peau
-** Last update Thu Feb  4 18:18:29 2016 Clement Peau
+** Last update Sun Feb 21 20:30:43 2016 Clement Peau
 */
 
 #include "minitalk.h"
 
-void	ping_pong(t_union oignon, pid_t pid)
+void	send_signals(char c, pid_t pid, int is_sent)
 {
-  ((oignon.field.eight) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.seven) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.six) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.five) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.four) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.three) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.two) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  ((oignon.field.one) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-  while (g_globale != 1);
-  g_globale = 0;
-  usleep(1);
-}
+  int	decal;
 
-void	send_signals(t_union oignon, pid_t pid, int is_sent)
-{
-  if (is_sent == 1)
-    ping_pong(oignon, pid);
-  else
+  is_sent = is_sent;
+  decal = 7;
+  while (decal >= 0)
     {
-      ((oignon.field.eight) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.seven) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.six) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.five) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.four) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.three) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.two) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
-      ((oignon.field.one) ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
-      usleep(1000);
+      ((c >> decal--) & 1 ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
+      usleep(10000);
     }
+  usleep(1);
 }

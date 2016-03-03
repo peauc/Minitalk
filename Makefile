@@ -5,7 +5,7 @@
 ## Login   <peau_c@epitech.net>
 ##
 ## Started on  Mon Feb  1 18:03:54 2016 Clement Peau
-## Last update Fri Feb  5 12:44:35 2016 Clement Peau
+## Last update Fri Feb 19 17:53:13 2016 Clement Peau
 ##
 
 CFLAGS=		-I./inc/ -W -Wall -Wextra
@@ -13,6 +13,7 @@ CFLAGS=		-I./inc/ -W -Wall -Wextra
 SRCBASIC=	basic/putnbr.c \
 		basic/strlen.c \
 		basic/my_puttable.c \
+		basic/my_getnbr.c \
 
 SRCCLIENT=	client/src/main.c \
 		client/src/signals.c \
@@ -46,9 +47,9 @@ client:		$(OBJCLIENT)
 all:		main
 
 clean:
-		rm -rf $(OBJSERVER) $(OBJCLIENT) $(OBJBASIC)
+		rm -rf -r $(OBJSERVER) $(OBJCLIENT) $(OBJBASIC)
 
 fclean:		clean
-		rm -rf client/client server/server
+		rm -rf -r client/client server/server
 
 re:		fclean all

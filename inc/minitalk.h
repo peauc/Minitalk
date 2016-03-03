@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Feb  1 20:45:33 2016 Clement Peau
-** Last update Thu Feb  4 18:26:44 2016 Clement Peau
+** Last update Sat Feb 20 16:59:51 2016 Clement Peau
 */
 
 #ifndef _MINITALK_H_
@@ -36,9 +36,10 @@ typedef union	s_union
   unsigned char	c;
 }		t_union;
 
+int getnbr(char *str);
 void my_puttable(unsigned char);
 void my_putnbr(int nb);
 int my_strlen(char *);
-void send_signals(t_union, pid_t, int);
+void send_signals(char, pid_t, int);
 
 # endif /* _MINITALK_H_ */

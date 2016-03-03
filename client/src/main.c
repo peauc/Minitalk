@@ -5,7 +5,7 @@
 ** Login   <peau_c@epitech.net>
 **
 ** Started on  Mon Feb  1 18:54:04 2016 Clement Peau
-** Last update Thu Feb  4 18:20:45 2016 Clement Peau
+** Last update Thu Feb 25 18:58:13 2016 Clement Peau
 */
 
 #include "minitalk.h"
@@ -13,22 +13,27 @@
 void	parse_it(char *str, pid_t pid, int is_sent)
 {
   int		i;
-  t_union	oignon;
+  int		decal;
 
   i = 0;
   while (str[i] != 0)
     {
-      oignon.c = str[i];
-      send_signals(oignon, pid, is_sent);
+      decal = 7;
+      while (decal >= 0)
+	{
+	  ((str[i] >> decal--) & 1 ? kill(pid, SIGUSR2) : kill(pid, SIGUSR1));
+	  usleep(1000);
+	}
+      usleep(1);
       i++;
     }
-  oignon.c = 0;
-  send_signals(oignon, pid, is_sent);
+  send_signals(0, pid, is_sent);
 }
 
 char		*putpid(char *pid, int nbr)
 {
   static int	count = 0;
+
   if (nbr > 0)
     {
       putpid(pid, nbr / 10);
@@ -45,14 +50,14 @@ char	*get_the_pid()
   char	*str;
 
   pid = getpid();
-  str = malloc(10);
+  if ((str = malloc(10)) == NULL)
+    return (NULL);
   str = putpid(str, pid);
   return (str);
 }
 
 void		received()
 {
-  g_globale = 1;
 }
 
 int		main(int ac, char **av, char **ae)
@@ -66,15 +71,16 @@ int		main(int ac, char **av, char **ae)
   if (av[1] == NULL || av[2] == NULL)
     return (1);
   signal(SIGUSR1, received);
-  if (atoi(av[1]) <= 0)
+  if (getnbr(av[1]) <= 0)
     {
       write(2, "Wrong PID\n", 10);
       return (80085);
     }
 
-  str = get_the_pid();
-  parse_it(str, atoi(av[1]), 0);
-  parse_it(av[2], atoi(av[1]), 1);
+  if ((str = get_the_pid()) == NULL)
+    return (1);
+  parse_it(str, getnbr(av[1]), 0);
+  parse_it(av[2], getnbr (av[1]), 1);
   free(str);
   return (1);
 }
